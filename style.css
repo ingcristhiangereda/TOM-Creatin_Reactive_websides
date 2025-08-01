@@ -29,7 +29,7 @@
   display: grid;
   grid-template-columns: 300px 1fr;
   grid-template-areas: 'sidebar content';
-  height: 100vh;
+  min-height: 100vh;
   background-color: var(--background);
   color: #fff;
 }
@@ -255,7 +255,6 @@ input:focus, textarea:focus, select:focus {
   padding: 20px 40px;
   gap: 30px;
   grid-template-columns: 475px 1fr;
-  height: 100%;
 }
 
 .btn-secondary {
@@ -279,4 +278,92 @@ input:focus, textarea:focus, select:focus {
 
 .todo-item:hover {
   background-color: var(--primary);
+}
+
+/* Container principal */
+#ToDo-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Header de la tabla */
+.todo-header-row {
+  display: flex;
+  font-weight: bold;
+  border-bottom: 2px solid #ccc;
+}
+
+.todo-header-row > div {
+  padding: 10px;
+}
+
+.todo-header-row > div:nth-child(1) {
+  flex: 0.2;
+}
+.todo-header-row > div:nth-child(2) {
+  flex: 0.8;
+}
+.todo-header-row > div:nth-child(3),
+.todo-header-row > div:nth-child(4) {
+  flex: 0.25;
+}
+
+/* Fila de tarea */
+.todo-row {
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.todo-row > div {
+  padding: 10px;
+}
+
+.todo-row > div:nth-child(1) {
+  flex: 0.2;
+}
+.todo-row > div:nth-child(2) {
+  flex: 0.8;
+}
+.todo-row > div:nth-child(3),
+.todo-row > div:nth-child(4) {
+  flex: 0.25;
+}
+
+todo-row {
+  background-color: #f0f0f0;
+}
+
+.todo-row {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.todo-row:hover {
+  background-color: #e0e0e0;
+}
+
+/* Celdas de estado */
+.status-cell.pending {
+  background-color: rgb(252, 6, 6);
+}
+.status-cell.active {
+  background-color: #f3d459;
+}
+.status-cell.finished {
+  background-color: #2af806;
+}
+
+/* Celdas de prioridad */
+.priority-cell.high {
+  background-color: #f50a0a;
+}
+.priority-cell.medium {
+  background-color: #f3d459;
+}
+.priority-cell.low {
+  background-color: #2af806;
 }
