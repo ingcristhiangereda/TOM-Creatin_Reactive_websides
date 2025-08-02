@@ -82,7 +82,7 @@ export function ToDoForm(props: Props) {
     }
     return(
         <dialog id="new-ToDo-modal">
-            <form onSubmit={onFormSubmit} id="ToDo-form">
+            <form onSubmit={onFormSubmit} id="ToDo-form"  style={{ padding: "20px" }}>
             <label>
                 Task to Do:
                 <input type="text" name="Task" required defaultValue={editingTodo?.Task || ""}/>

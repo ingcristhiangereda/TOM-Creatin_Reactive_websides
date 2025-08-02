@@ -1,12 +1,12 @@
-import { Project } from "../classes/Project";
+import { Project, Itodo } from "../classes/Project";
 
 interface Props {
-  project: Project;
+  todos: Itodo[];
   onTodoClick: (index: number) => void;
 }
 
 export function ProjectTaskList(props: Props) {
-  const { Todos } = props.project;
+  const { todos } = props;
 
   return (
     <div id="ToDo-list">
@@ -17,9 +17,9 @@ export function ProjectTaskList(props: Props) {
         <div>Priority</div>
       </div>
 
-      {Todos.map((todo, index) => (
+      {todos.map((todo, index) => (
         <div
-          key={todo.id}
+          key={todo.id || `todo-${index}`}
           className={`todo-row`}
           data-id={index}
           onClick={() => props.onTodoClick(index)}

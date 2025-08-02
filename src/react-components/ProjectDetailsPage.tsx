@@ -9,6 +9,7 @@ import {ThreeViewer} from "./ThreeViewer"
 import { deleteDocument } from "../firebase";
 import { ToDoForm } from "./TodoForm";
 import {ProjectTaskList} from "./ProjectTaskList"
+import { SearchBox } from "./SearchBox";
 
 
 const projectsCollection = getCollection<IProject>("projects");
@@ -19,6 +20,7 @@ interface Props {
 }
 
 export function ProjectDetailsPage(props: Props) {
+  const [searchTerm, setSearchTerm] = React.useState("");
   const [editingTodoIndex, setEditingTodoIndex] = React.useState<number | undefined>(undefined);
   const handleTodoClick = (index: number) => {
     setEditingTodoIndex(index);
@@ -42,12 +44,7 @@ export function ProjectDetailsPage(props: Props) {
     navigateTo("/")
   }
 
-  const onTodoEdit = (index: number) => {
-  setEditingTodoIndex(index);
-  const modal = document.getElementById("new-ToDo-modal");
-  if (modal && modal instanceof HTMLDialogElement) modal.showModal();
-  };
-
+  
   const onEditClick =()  =>{
     const modal = document.getElementById("new-project-modal")
     if (!(modal && modal instanceof HTMLDialogElement)) {return}
@@ -55,16 +52,11 @@ export function ProjectDetailsPage(props: Props) {
 
   }
 
-  const onTodoCreate =()  =>{
-    const modal = document.getElementById("new-ToDo-modal")
-    if (!(modal && modal instanceof HTMLDialogElement)) {return}
-    modal.showModal()
-  }
+  const filteredTodos = project.Todos.filter((todo) =>
+    todo.Task.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-  // if (!project) return <p>Loading...</p>;
-  // if (project){
-    
-  // }
+
   return (    
   <div className="page" id="project-details">
     <NewProjectForm projectsManager={props.projectsManager} project={project}/> 
@@ -186,11 +178,7 @@ export function ProjectDetailsPage(props: Props) {
                 style={{ display: "flex", alignItems: "center", columnGap: 10 }}
               >
                 <span className="material-icons-round">search</span>
-                <input
-                  type="text"
-                  placeholder="Search To-Do's by name"
-                  style={{ width: "100%" }}
-                />
+                <SearchBox onChange={(value) => setSearchTerm(value)} />
               </div>
               <button onClick={handleNewTodo} className="icon-button">
                 <span className="material-icons-round">add</span>
@@ -234,7 +222,7 @@ export function ProjectDetailsPage(props: Props) {
             <div>
               TablaTodo
               <ProjectTaskList
-                project={project}
+                todos={filteredTodos}
                 onTodoClick={handleTodoClick}
               />
             </div>
